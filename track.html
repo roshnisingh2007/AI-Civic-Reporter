@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Track Complaint - AI Civic Reporter</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            AI Civic Reporter
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="report.html">Report Issue</a>
+
+            <a href="track.html">Track Complaint</a>
+
+            <a href="login.html">Login</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Track Complaint Section -->
+
+    <section class="track-section">
+
+        <h1>Track Your Complaint</h1>
+
+        <p>
+            Enter your Complaint ID to check the status
+            of your reported issue.
+        </p>
+
+
+        <form id="trackForm">
+
+            <label for="complaintID">
+                Complaint ID
+            </label>
+
+            <input
+                type="text"
+                id="complaintID"
+                placeholder="Example: CR1234"
+                required
+            >
+
+            <button
+                type="submit"
+                class="button">
+
+                Track Complaint
+
+            </button>
+
+        </form>
+
+
+        <!-- Result -->
+
+        <div id="complaintResult" class="complaint-result">
+
+        </div>
+
+    </section>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>

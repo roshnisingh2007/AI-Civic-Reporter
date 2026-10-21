@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard - AI Civic Reporter</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            AI Civic Reporter
+        </div>
+
+        <div class="nav-links">
+
+            <a href="index.html">Home</a>
+
+            <a href="report.html">Report Issue</a>
+
+            <a href="track.html">Track Complaint</a>
+
+            <a href="login.html">Login</a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- Admin Dashboard -->
+
+    <section class="admin-section">
+
+        <h1>Admin Dashboard</h1>
+
+        <p>
+            Manage and monitor reported civic issues.
+        </p>
+
+
+        <!-- Statistics -->
+
+        <div class="dashboard-cards">
+
+            <div class="dashboard-card">
+
+                <h2 id="totalComplaints">0</h2>
+
+                <p>Total Complaints</p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h2 id="pendingComplaints">0</h2>
+
+                <p>Pending</p>
+
+            </div>
+
+
+            <div class="dashboard-card">
+
+                <h2 id="resolvedComplaints">0</h2>
+
+                <p>Resolved</p>
+
+            </div>
+
+        </div>
+
+
+        <!-- Complaint Table -->
+
+        <div class="complaint-table">
+
+            <h2>Complaint Records</h2>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Complaint ID</th>
+
+                        <th>Name</th>
+
+                        <th>Category</th>
+
+                        <th>Location</th>
+
+                        <th>Status</th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="complaintTableBody">
+
+                    <tr>
+
+                        <td colspan="5">
+                            No complaints found.
+                        </td>
+
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <script src="js/script.js"></script>
+
+</body>
+
+</html>
