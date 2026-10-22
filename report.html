@@ -2,202 +2,170 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report an Issue - AI Civic Reporter</title>
-
     <link rel="stylesheet" href="css/style.css">
-
+    <script src="js/exifr.full.umd.js"></script>
 </head>
 
 <body>
 
     <!-- Navigation -->
-
     <nav class="navbar">
-
         <div class="logo">
             AI Civic Reporter
         </div>
-
         <div class="nav-links">
-
             <a href="index.html">Home</a>
-
-            <a href="report.html">Report Issue</a>
-
+            <a href="report.html" style="text-decoration: underline; font-weight: bold;">Report Issue</a>
             <a href="track.html">Track Complaint</a>
-
+            <a href="admin.html">Admin Dashboard</a>
             <a href="login.html">Login</a>
-
         </div>
-
     </nav>
 
-
-    <!-- Report Form -->
-
-    <section class="form-section">
+    <!-- Report Form Section -->
+    <section class="form-section" style="max-width: 680px; margin: 30px auto; padding: 25px;">
 
         <h1>Report a Civic Issue</h1>
-
         <p class="form-intro">
-            Help improve your community by reporting
-            a civic problem.
+            Help improve your community. All civic issues are verified through live on-site reporting.
         </p>
 
+        <!-- Anti-Fake Report Security Notice -->
+        <div class="anti-fraud-banner">
+            <strong>🔒 Anti-Fake Report Policy:</strong>
+            Gallery &amp; pre-saved image uploads are <strong>permanently disabled</strong>. You must capture a <strong>live on-site photo</strong> using your device camera with GPS enabled to prevent fraudulent or duplicate complaints.
+        </div>
 
         <form id="complaintForm">
 
             <!-- Name -->
-
-            <label for="name">
-                Your Name
-            </label>
-
-            <input
-                type="text"
-                id="name"
-                placeholder="Enter your name"
-                required
-            >
-
+            <label for="name">Your Name *</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
 
             <!-- Category -->
-
-            <label for="category">
-                Issue Category
-            </label>
-
+            <label for="category">Issue Category *</label>
             <select id="category" required>
-
-                <option value="">
-                    Select an issue
-                </option>
-
-                <option value="Garbage">
-                    Garbage
-                </option>
-
-                <option value="Pothole">
-                    Pothole
-                </option>
-
-                <option value="Water Leakage">
-                    Water Leakage
-                </option>
-
-                <option value="Broken Streetlight">
-                    Broken Streetlight
-                </option>
-
-                <option value="Sanitation">
-                    Sanitation
-                </option>
-
-                <option value="Other">
-                    Other
-                </option>
-
+                <option value="">Select an issue category</option>
+                <option value="Garbage">Garbage</option>
+                <option value="Pothole">Pothole</option>
+                <option value="Water Leakage">Water Leakage</option>
+                <option value="Broken Streetlight">Broken Streetlight</option>
+                <option value="Sanitation">Sanitation</option>
+                <option value="Other">Other</option>
             </select>
 
-
             <!-- Description -->
+            <label for="description">Describe the Issue *</label>
+            <textarea id="description" placeholder="Describe the problem in detail (landmarks, urgency, hazard)..." required rows="4"></textarea>
 
-            <label for="description">
-                Describe the Issue
-            </label>
-
-            <textarea id="description" placeholder="Describe the problem in detail..." required></textarea>
-            
-            
-            <div id="aiAnalysisPreview" style="
-                 display: none;
-                 margin: 15px 0;
-                 padding: 15px;
-                 border-radius: 10px;
-                 background: #f0f7ff;
-                 border: 1px solid #b8d8ff;
-            ">
-                 <h3>🤖 AI Analysis Preview</h3>
-
-                 <p><strong>Suggested Category:</strong>
-                     <span id="suggestedCategory">-</span>
-                 </p>
-
-                 <p><strong>Suggested Priority:</strong>
-                     <span id="suggestedPriority">-</span>
-                 </p>
-
-                 <p style="font-size: 12px; color: #555;">
-                     Demo only — suggestions use simple JavaScript rules,
-                     not a real AI model.
-                 </p>
+            <!-- AI Analysis Preview -->
+            <div id="aiAnalysisPreview" style="display: none; margin: 15px 0; padding: 15px; border-radius: 10px; background: #f0f7ff; border: 1px solid #b8d8ff;">
+                <h3 style="margin-top: 0; font-size: 15px; color: #1746a2;">🤖 AI Real-Time Analysis</h3>
+                <p style="margin: 6px 0; font-size: 14px;"><strong>Detected Category:</strong> <span id="suggestedCategory">-</span></p>
+                <p style="margin: 6px 0; font-size: 14px;"><strong>Estimated Priority:</strong> <span id="suggestedPriority" style="font-weight: bold;">-</span></p>
             </div>
 
+            <!-- STRICT LIVE CAMERA ONLY SECTION -->
+            <div class="geotag-box" style="background: #ffffff; border: 2px solid #cbd5e1; border-radius: 12px; padding: 22px; margin: 25px 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 12px;">
+                    <label style="margin: 0; font-size: 16px; font-weight: 700; color: #0f172a;">
+                        Live On-Site Photo <span style="color: #dc2626;">* (Live Camera Only)</span>
+                    </label>
+                    <span id="liveStatusBadge" style="display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 5px 12px; border-radius: 20px; background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca;">
+                        🔴 Live Photo Required
+                    </span>
+                </div>
 
+                <p style="font-size: 13px; color: #64748b; margin-top: 0; margin-bottom: 16px; line-height: 1.5;">
+                    Fake report prevention enabled. Click the button below to start your camera and take a verified live photo on location.
+                </p>
 
+                <!-- Hidden inputs for coordinates & mobile direct camera fallback -->
+                <input type="file" id="mobileCameraInput" accept="image/*" capture="environment" style="display: none;">
+                <input type="hidden" id="geotagLat" name="geotag_lat">
+                <input type="hidden" id="geotagLng" name="geotag_lng">
+                <input type="hidden" id="isLiveCapture" name="is_live_capture" value="true">
 
-            <!-- Image -->
+                <!-- Camera Launch Button -->
+                <div id="cameraControls" style="margin-bottom: 12px;">
+                    <button type="button" id="startLiveCameraBtn" class="btn-live-capture">
+                        📷 Open Live Camera
+                    </button>
+                    <button type="button" id="mobileCameraBtn" class="btn-secondary" style="margin-left: 8px; font-size: 13px;">
+                        📱 Mobile Camera App
+                    </button>
+                </div>
 
-            <label for="image">
-                Upload Image
-            </label>
+                <!-- Live Camera Viewfinder Box -->
+                <div id="cameraViewfinder" class="camera-viewfinder-box" style="display: none;">
+                    <div class="camera-live-tag">
+                        <span class="live-dot"></span> LIVE CAMERA
+                    </div>
+                    <div class="camera-crosshairs"></div>
+                    <video id="cameraVideo" playsinline autoplay></video>
+                    
+                    <div style="background: #1e293b; padding: 12px; display: flex; gap: 10px; justify-content: center; align-items: center;">
+                        <button type="button" id="snapPhotoBtn" class="button" style="background: #16a34a; font-weight: 700; padding: 10px 22px; font-size: 14px;">
+                            📸 Click Live Picture &amp; Geotag
+                        </button>
+                        <button type="button" id="stopCameraBtn" class="btn-secondary" style="background: #334155; color: white; border: none; font-size: 13px; padding: 9px 15px;">
+                            ✖ Close Camera
+                        </button>
+                    </div>
+                </div>
 
-            <input
-                type="file"
-                id="image"
-                accept="image/*"
-            >
-            <img
-                id="imagePreview"
-                alt="Selected complaint photo preview"
-                style="display: none; width: 200px; margin-top: 10px; border-radius: 8px;"
-            >
+                <!-- Hidden Canvas for Watermarking GPS Banner -->
+                <canvas id="geotagCanvas" style="display: none;"></canvas>
 
+                <!-- Captured Live Photo Preview Box -->
+                <div id="imagePreviewContainer" style="display: none; margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span class="badge-live-verified">
+                            🛡️ LIVE ON-SITE PHOTO VERIFIED
+                        </span>
+                        <button type="button" id="retakePhotoBtn" class="btn-secondary" style="font-size: 12px; padding: 5px 12px;">
+                            🔄 Retake Live Photo
+                        </button>
+                    </div>
+
+                    <div style="position: relative; max-width: 440px; border-radius: 8px; overflow: hidden; border: 2px solid #10b981;">
+                        <img id="imagePreview" alt="Live captured complaint photo" style="width: 100%; max-height: 280px; object-fit: cover; display: block;">
+                        <div id="geotagOverlay" style="background: rgba(15, 23, 42, 0.92); color: #ffffff; padding: 10px 14px; font-size: 12px; font-family: monospace;">
+                            <div id="geoOverlayCoords" style="color: #38bdf8; font-weight: bold;">📍 GPS: Detecting...</div>
+                            <div id="geoOverlayTime" style="font-size: 11px; color: #cbd5e1; margin-top: 3px;">🕒 LIVE TIMESTAMP: -</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Feedback Message -->
+                <div id="geotagMessageBox" style="padding: 10px 14px; border-radius: 8px; font-size: 13px; line-height: 1.5; display: none; margin-top: 12px;"></div>
+
+            </div>
 
             <!-- Location -->
+            <label for="location">Location / Landmark *</label>
+            <input type="text" id="location" placeholder="Auto-populated when live photo is captured" required>
 
-            <label for="location">
-                Location
-            </label>
-
-            <input
-                type="text"
-                id="location"
-                placeholder="Enter the location of the issue"
-                required
-            >
-            
-            <button
-                type="button"
-                id="getLocationBtn"
-                class="button">
-               📍 Use My Current Location
+            <button type="button" id="getLocationBtn" class="button" style="background: #ffffff; color: #1746a2; border: 1px solid #cbd5e1; margin-top: 8px;">
+                📍 Refresh Live GPS Coordinates
             </button>
+            <p id="locationMessage" style="font-size: 13px; margin: 6px 0 15px; color: #64748b;"></p>
 
-<p id="locationMessage"></p>
-
-
-
-            <!-- Submit -->
-
-            <button
-                type="submit"
-                class="button">
-
-                Submit Complaint
-
+            <!-- Submit Button -->
+            <button type="submit" id="submitComplaintBtn" class="button" style="width: 100%; padding: 14px; font-size: 16px; margin-top: 15px; background: #1746a2;">
+                Submit Verified Complaint
             </button>
 
         </form>
 
     </section>
 
+    <footer>
+        <p>© 2026 AI Civic Reporter — Verified Live Civic Problem Reporting</p>
+    </footer>
 
     <script src="js/script.js"></script>
 
