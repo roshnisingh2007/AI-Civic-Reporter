@@ -2,134 +2,194 @@
 <html lang="en">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Admin Dashboard - AI Civic Reporter</title>
-
     <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
 
     <!-- Navigation Bar -->
-
     <nav class="navbar">
-
         <div class="logo">
             AI Civic Reporter
         </div>
-
         <div class="nav-links">
-
             <a href="index.html">Home</a>
-
             <a href="report.html">Report Issue</a>
-
             <a href="track.html">Track Complaint</a>
-
+            <a href="admin.html" style="text-decoration: underline; font-weight: bold;">Admin Dashboard</a>
             <a href="login.html">Login</a>
-
         </div>
-
     </nav>
 
-
-    <!-- Admin Dashboard -->
-
-    <section class="admin-section">
-
-        <h1>Admin Dashboard</h1>
-
-        <p>
-            Manage and monitor reported civic issues.
-        </p>
-
-
-        <!-- Statistics -->
-
-        <div class="dashboard-cards">
-
-            <div class="dashboard-card">
-
-                <h2 id="totalComplaints">0</h2>
-
-                <p>Total Complaints</p>
-
+    <!-- Admin Dashboard Section -->
+    <section class="admin-section" style="max-width: 1200px; margin: 30px auto; padding: 0 20px;">
+        <div style="text-align: center; margin-bottom: 25px;">
+            <div class="admin-header-badge">
+                <span>●</span> Python Backend Connected
             </div>
-
-
-            <div class="dashboard-card">
-
-                <h2 id="pendingComplaints">0</h2>
-
-                <p>Pending</p>
-
-            </div>
-
-
-            <div class="dashboard-card">
-
-                <h2 id="resolvedComplaints">0</h2>
-
-                <p>Resolved</p>
-
-            </div>
-
+            <h1 style="color: #173f5f; font-size: 32px; margin-bottom: 8px;">Admin Dashboard</h1>
+            <p style="color: #64748b; font-size: 16px;">
+                Live civic issue control center: monitor, filter, update statuses, and resolve complaints submitted by citizens.
+            </p>
         </div>
 
+        <!-- Statistics Cards -->
+        <div class="dashboard-cards">
+            <div class="dashboard-card card-total">
+                <h2 id="totalComplaints">0</h2>
+                <p>Total Complaints</p>
+            </div>
+
+            <div class="dashboard-card card-pending">
+                <h2 id="pendingComplaints" style="color: #d97706;">0</h2>
+                <p>Pending</p>
+            </div>
+
+            <div class="dashboard-card card-in-progress">
+                <h2 id="inProgressComplaints" style="color: #2563eb;">0</h2>
+                <p>In Progress</p>
+            </div>
+
+            <div class="dashboard-card card-resolved">
+                <h2 id="resolvedComplaints" style="color: #16a34a;">0</h2>
+                <p>Resolved</p>
+            </div>
+        </div>
+
+        <!-- Search, Filter & Refresh Toolbar -->
+        <div class="admin-toolbar">
+            <div class="toolbar-search">
+                <span class="toolbar-search-icon">🔍</span>
+                <input type="text" id="adminSearchInput" placeholder="Search by ID, citizen name, location, keyword...">
+            </div>
+
+            <div class="toolbar-filters">
+                <select id="filterStatus" aria-label="Filter by Status">
+                    <option value="All">All Statuses</option>
+                    <option value="Pending">Pending</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Resolved">Resolved</option>
+                </select>
+
+                <select id="filterCategory" aria-label="Filter by Category">
+                    <option value="All">All Categories</option>
+                    <option value="Garbage">Garbage</option>
+                    <option value="Pothole">Pothole</option>
+                    <option value="Water Leakage">Water Leakage</option>
+                    <option value="Broken Streetlight">Broken Streetlight</option>
+                    <option value="Sanitation">Sanitation</option>
+                    <option value="Other">Other</option>
+                </select>
+
+                <select id="filterPriority" aria-label="Filter by Priority">
+                    <option value="All">All Priorities</option>
+                    <option value="High">High Priority</option>
+                    <option value="Medium">Medium Priority</option>
+                    <option value="Low">Low Priority</option>
+                </select>
+
+                <button type="button" id="refreshBtn" class="btn-secondary">
+                    🔄 Refresh
+                </button>
+            </div>
+        </div>
 
         <!-- Complaint Table -->
-
         <div class="complaint-table">
-
-            <h2>Complaint Records</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <h2 style="margin: 0; font-size: 20px;">Citizen Problem Requests</h2>
+                <span id="recordsCountBadge" style="font-size: 13px; color: #64748b; font-weight: 600;">Loading complaints...</span>
+            </div>
 
             <table>
-
                 <thead>
-
                     <tr>
-
                         <th>Complaint ID</th>
-
-                        <th>Name</th>
-
+                        <th>Citizen Name</th>
                         <th>Category</th>
-
                         <th>Location</th>
-
+                        <th>AI Priority</th>
+                        <th>Photo</th>
+                        <th>Submitted On</th>
                         <th>Status</th>
-
+                        <th>Actions</th>
                     </tr>
-
                 </thead>
-
-
                 <tbody id="complaintTableBody">
-
                     <tr>
-
-                        <td colspan="5">
-                            No complaints found.
+                        <td colspan="9" style="text-align: center; padding: 30px; color: #64748b;">
+                            Loading live complaints from server...
                         </td>
-
                     </tr>
-
                 </tbody>
-
             </table>
-
         </div>
-
     </section>
 
+    <!-- Complaint Detail Modal -->
+    <div id="detailModal" class="modal-overlay">
+        <div class="modal-box">
+            <button type="button" class="modal-close" id="modalCloseBtn">&times;</button>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <span id="modalIdBadge" class="badge-id" style="font-size: 15px;">CR0000</span>
+                <span id="modalCategoryBadge" class="category-tag">Category</span>
+                <span id="modalPriorityBadge" class="badge-priority">Priority</span>
+            </div>
+
+            <div class="modal-detail-row">
+                <div class="modal-detail-label">Citizen Name</div>
+                <div id="modalCitizenName" class="modal-detail-value">-</div>
+            </div>
+
+            <div class="modal-detail-row">
+                <div class="modal-detail-label">Location</div>
+                <div id="modalLocation" class="modal-detail-value">-</div>
+            </div>
+
+            <div class="modal-detail-row">
+                <div class="modal-detail-label">Problem Description</div>
+                <div id="modalDescription" class="modal-detail-value" style="white-space: pre-wrap;">-</div>
+            </div>
+
+            <div class="modal-detail-row">
+                <div class="modal-detail-label">Reported Photo</div>
+                <div id="modalPhotoContainer">
+                    <span class="no-photo">No image attached with this report</span>
+                </div>
+            </div>
+
+            <div class="modal-detail-row">
+                <div class="modal-detail-label">Date Reported</div>
+                <div id="modalDate" class="modal-detail-value">-</div>
+            </div>
+
+            <div class="modal-detail-row" style="border-bottom: none;">
+                <div class="modal-detail-label">Update Status</div>
+                <div style="margin-top: 8px;">
+                    <select id="modalStatusSelect" class="status-select" style="font-size: 14px; padding: 8px 14px;">
+                        <option value="Pending">Pending</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Resolved">Resolved</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Toast Notification -->
+    <div id="toastNotice" class="toast-notice">
+        <span id="toastIcon">✓</span>
+        <span id="toastMsg">Operation successful</span>
+    </div>
+
+    <footer>
+        <p>© 2026 AI Civic Reporter — Civic Issue Management System</p>
+    </footer>
 
     <script src="js/script.js"></script>
-
 </body>
 
 </html>
